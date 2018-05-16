@@ -5,15 +5,15 @@
 # Site
 title: 影子烤焦了
 subtitle: 脑海中起毛球的记忆。
-description: 影子烤焦了
-keywords: 缪倩,前端, 博客, 智慧, 成长
+description: 前端开发
+keywords: 前端, 知识, 技术, 博客, 分享, 成长
 author: 影子烤焦了
 language: zh-CN
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: https://miaoq.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -41,7 +41,7 @@ future: true
 highlight:
   enable: true
   line_number: true
-  auto_detect: false
+  auto_detect: true
   tab_replace:
   
 # Home page setting
