@@ -68,6 +68,9 @@ local_search: true ## Use a javascript-based local search engine, true/false.
 
 #Cmments
 comment:
+  gitment:
+    id: 912e245784fb699985d9
+    secret: 7ac1ddf4ede7c31fbcaef70d2a1eadd69dffbb05
   duoshuo: #chaooo ## duoshuo_shortname
   disqus: ## disqus_shortname
   livere: ## 来必力(data-uid)

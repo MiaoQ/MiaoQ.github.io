@@ -97,3 +97,22 @@ if theme.comment.changyan.appid && theme.comment.changyan.appkey
     })();
   script(src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js")
 
+if theme.comment.gitment.id && theme.comment.gitment.secret  && page.gitment
+  script(src="https://imsun.github.io/gitment/dist/gitment.browser.js")
+  script.
+    var clientId = '#{theme.comment.gitment.id}';
+    var clientSecret = '#{theme.comment.gitment.secret}';
+    var gitment = new Gitment({
+      id: '#{page.gitment}',
+      owner: 'MiaoQ',
+      repo: 'miaoq.github.io',
+      oauth: {
+        client_id: clientId,
+        client_secret: clientSecret,
+      },
+    });
+
+    gitment.render('gitment-wrapper');
+
+
+

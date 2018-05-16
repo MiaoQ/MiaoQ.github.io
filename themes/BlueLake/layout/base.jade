@@ -32,8 +32,10 @@ html(lang='#{config.language}')
     link(rel="bookmark", href=url_for('favicon.ico'))
     link(rel='apple-touch-icon', href=url_for('apple-touch-icon.png'))
     link(rel='apple-touch-icon-precomposed', href=url_for('apple-touch-icon.png'))
+    link(rel="stylesheet", type="text/css", href="/css/default.css")
     if config.feed
       link(rel='alternate', type=feed_type, href=url_for(config.feed.path))
+
 
   body
     .body_container
