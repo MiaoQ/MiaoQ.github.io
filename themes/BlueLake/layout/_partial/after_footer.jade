@@ -22,6 +22,19 @@ if theme.baidu_analytics
 if theme.local_search == true
   script(type='text/javascript', src=url_for(theme.js) + '/search.json.js' + '?v=' + theme.version)
 
+if theme.PWA
+  script.
+    if(navigator.serviceWorker != null) {
+      window.addEventListener('DOMContentLoaded', function() {
+        // 执行注册
+        navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+
+        }).catch(function(err) {
+        // Eat it!
+        });
+      });
+    }
+
 //- if theme.tinysou
 //-   script.
 //-     var option = {

@@ -66,6 +66,9 @@ baidusitemap:
 #Local search
 local_search: true ## Use a javascript-based local search engine, true/false.
 
+#PWA
+PWA: true
+
 #Cmments
 comment:
   gitment:

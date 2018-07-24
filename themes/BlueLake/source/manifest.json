@@ -1,0 +1,14 @@
+{
+  "name": "Blog",
+  "icons": [
+    {
+      "src": "/img/qian_144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#181743",
+  "background_color": "#181743",
+  "start_url": "/",
+  "display": "standalone"
+}
