@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="前端开发"><meta name="keywords" content="前端, 知识, 技术, 博客, 分享, 成长"><title>MongoDB | 影子烤焦了</title><link rel="manifest" href="/manifest.json"><link rel="stylesheet" type="text/css" href="//fonts.neworld.org/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.1"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.1"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="stylesheet" type="text/css" href="/css/default.css"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">MongoDB</h1><a id="logo" href="/.">影子烤焦了</a><p class="description">脑海中起毛球的记忆。</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="Arama"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">MongoDB</h1><div class="post-meta"><a href="/2018/06/24/DB-2018-06-24-MongoDB/#comments" class="comment-count"></a><p><span class="date">Jun 24, 2018</span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><h3 id="概念解析"><a href="#概念解析" class="headerlink" title="概念解析"></a>概念解析</h3><table>
+<thead>
+<tr>
+<th>SQL术语/概念</th>
+<th>MongoDB术语/概念</th>
+<th>解释/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>database</td>
+<td>database</td>
+<td>数据库</td>
+</tr>
+<tr>
+<td>table</td>
+<td>collection</td>
+<td>数据库表/集合</td>
+</tr>
+<tr>
+<td>row</td>
+<td>document</td>
+<td>数据记录行/文档</td>
+</tr>
+<tr>
+<td>column</td>
+<td>field</td>
+<td>数据字段/域</td>
+</tr>
+<tr>
+<td>index</td>
+<td>index</td>
+<td>索引</td>
+</tr>
+<tr>
+<td>table.joins()</td>
+<td></td>
+<td>表连接，MongoDB不支持</td>
+</tr>
+<tr>
+<td>primary key</td>
+<td>primary key</td>
+<td>主键，MongoDB自动将_id字段设置为主键</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p><strong>数据库</strong><br>有一些数据库名是保留的，可以直接访问这些有特殊作用的数据库：</p>
+<ul>
+<li><code>admin</code>：从权限的角度来看，这是”root”数据库。要是将一个用户添加到这个数据库，这个用户自动继承所有数据库的权限。一些特定的服务器端命令也只能从这个数据库运行，比如列出所有的数据库或者关闭服务器。</li>
+<li><code>local</code>: 这个数据永远不会被复制，可以用来存储限于本地单台服务器的任意集合</li>
+<li><code>config</code>: 当Mongo用于分片设置时，config数据库在内部使用，用于保存分片的相关信息。</li>
+</ul>
+<p><strong>文档</strong><br>文档是一组键值(key-value)对(即BSON)。MongoDB 的文档不需要设置相同的字段，并且相同的字段不需要相同的数据类型，这与关系型数据库有很大的区别，也是 MongoDB 非常突出的特点。</p>
+<ul>
+<li>文档中的键/值对是有序</li>
+<li>文档中的值不仅可以是在双引号里面的字符串，还可以是其他几种数据类型（甚至可以是整个嵌入的文档)</li>
+<li>不能有重复的键</li>
+<li>文档的键是字符串</li>
+<li>以下划线”_”开头的键是保留的(不是严格要求的)</li>
+</ul>
+<p><strong>集合</strong><br>集合就是 MongoDB 文档组，类似于关系数据库管理系统中的表格，集合存在于数据库中，集合没有固定的结构</p>
+<ul>
+<li>集合名不能以”system.”开头</li>
+<li>不要在名字里出现$</li>
+</ul>
+<p><strong>元数据</strong><br>ObjectId 类似唯一主键，前4个字节是时间戳，_id键的值默认是个 ObjectId 对象，<code>ObjectId().getTimestamp()</code>可获取文档的创建时间</p>
+<hr>
+<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p>以管理员身份打开控制台，输入mongo进入命令控制台:</p>
+<p>显示：</p>
+<ul>
+<li><code>show dbs</code>显示所有数据库的列表</li>
+<li><code>db</code>显示当前数据库对象或集合</li>
+<li><code>show collections</code>查看已有集合</li>
+<li><code>show tables</code>显示当前数据库下的所有集合</li>
+<li><code>use + dbName</code>切换到指定数据库（如果数据库不存在，则创建数据库）</li>
+</ul>
+<p>删除：</p>
+<ul>
+<li><code>db.dropDatabase()</code>删除当前数据库</li>
+<li><code>db.collectionName.drop()</code>删除整个collection</li>
+</ul>
+<p>创建：</p>
+<ul>
+<li><code>db.createCollection(name, options)</code>创建集合</li>
+<li><code>db.collectionName.insert(document)</code>插入文档</li>
+<li><code>db.collectionName.save(document)</code>不指定 _id 字段跟insert一样，指定 _id 字段，则会更新该 _id 的数据</li>
+<li><code>db.collectionName.update({query}, {update}, {options})</code>更新文档</li>
+<li><code>db.collectionName.remove({query}, {options})</code>删除文档</li>
+</ul>
+<p>查找：</p>
+<ul>
+<li><code>db.collectionName.find({query}, projection)</code>query中AND直接以逗号分隔key：<code>{key1:value1, key2:value2}</code>，OR则使用<code>{$or: [{key1: value1}, {key2:value2}]}</code>，AND和OR可组合使用</li>
+<li><code>db.collectionName.find().limit(num)</code>指定读取的条数</li>
+<li><code>db.collectionName.find().skip(num)</code>指定跳过的条数</li>
+<li><code>db.collectionName.find().sort({key: 1})</code>对指定的key排序（升序1，降序-1）</li>
+</ul>
+<p>其它方法：</p>
+<ul>
+<li><code>db.collectionName.createIndex(keys, options)</code>创建索引</li>
+<li><code>db.collectionName.aggregate(options)</code>聚合方法，计算某个字段的总和、平均值等<a href="http://www.runoob.com/mongodb/mongodb-aggregate.html" target="_blank" rel="noopener">http://www.runoob.com/mongodb/mongodb-aggregate.html</a></li>
+</ul>
+<hr>
+<h3 id="其它操作"><a href="#其它操作" class="headerlink" title="其它操作"></a>其它操作</h3><p><strong>条件操作符</strong><br>条件|操作符<br>–|–<br>大于|$gt<br>小于|$lt<br>大于等于|$gte<br>小于等于|$lte</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.col.find(&#123;<span class="attr">likes</span> : &#123;<span class="attr">$gte</span> : <span class="number">100</span>&#125;&#125;)</span><br><span class="line"><span class="comment">//获取"col"集合中 "likes" 大于等于 100 的数据</span></span><br></pre></td></tr></table></figure>
+<p><code>$type</code>操作符是基于BSON类型来检索集合中匹配的数据类型，并返回结果。<br><a href="http://www.runoob.com/mongodb/mongodb-operators-type.html" target="_blank" rel="noopener">http://www.runoob.com/mongodb/mongodb-operators-type.html</a></p>
+<p><strong>管道的概念</strong><br><a href="http://www.runoob.com/mongodb/mongodb-aggregate.html" target="_blank" rel="noopener">http://www.runoob.com/mongodb/mongodb-aggregate.html</a><br>管道在Unix和Linux中一般用于将当前命令的输出结果作为下一个命令的参数。<br>MongoDB的聚合管道将MongoDB文档在一个管道处理完毕后将结果传递给下一个管道处理。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">db.articles.aggregate([</span><br><span class="line">    &#123; <span class="attr">$match</span> : &#123; <span class="attr">score</span> : &#123; <span class="attr">$gt</span> : <span class="number">70</span>, <span class="attr">$lte</span> : <span class="number">90</span> &#125; &#125; &#125;,</span><br><span class="line">    &#123; <span class="attr">$group</span>: &#123; <span class="attr">_id</span>: <span class="literal">null</span>, <span class="attr">count</span>: &#123; <span class="attr">$sum</span>: <span class="number">1</span> &#125; &#125; &#125;</span><br><span class="line">]);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">$match用于获取分数大于70小于或等于90记录，</span></span><br><span class="line"><span class="comment">然后将符合条件的记录送到下一阶段$group管道操作符进行处理</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p><strong>MongoDB 复制（副本集）</strong><br>MongoDB复制是将数据同步在多个服务器的过程。复制提供了数据的冗余备份，并在多个服务器上存储数据副本，提高了数据的可用性， 并可以保证数据的安全性。复制还允许您从硬件故障和服务中断中恢复数据。</p>
+<p><strong>MongoDB 分片</strong><br>在Mongodb里面存在另一种集群，就是分片技术,可以满足MongoDB数据量大量增长的需求。当MongoDB存储海量的数据时，一台机器可能不足以存储数据，也可能不足以提供可接受的读写吞吐量。这时，我们就可以通过在多台机器上分割数据，使得数据库系统能存储和处理更多的数据。</p>
+<p><strong>MongoDB 备份(mongodump)与恢复(mongorestore)</strong><br>备份数据命令<code>mongodump</code><br>恢复数据命令<code>mongorestore</code></p>
+<p><strong>MongoDB 监控</strong><br>在你已经安装部署并允许MongoDB服务后，你必须要了解MongoDB的运行情况，并查看MongoDB的性能。这样在大流量得情况下可以很好的应对并保证MongoDB正常运作。<br>进入安装MongoDB目录下的bin目录使用命令：<br><code>mongostat</code>间隔固定时间获取mongodb的当前运行状态，并输出<br><code>mongotop &lt;options&gt;</code>跟踪一个MongoDB的实例，查看哪些大量的时间花费在读取和写入数据</p>
+<hr>
+<h3 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h3><p><code>java</code>：<a href="http://www.runoob.com/mongodb/mongodb-java.html" target="_blank" rel="noopener">http://www.runoob.com/mongodb/mongodb-java.html</a><br><code>PHP</code>：<a href="http://www.runoob.com/mongodb/mongodb-php.html" target="_blank" rel="noopener">http://www.runoob.com/mongodb/mongodb-php.html</a><br><code>Node.js</code>：<a href="http://www.runoob.com/nodejs/nodejs-mongodb.html" target="_blank" rel="noopener">http://www.runoob.com/nodejs/nodejs-mongodb.html</a></p>
+<hr>
+<h3 id="深入"><a href="#深入" class="headerlink" title="深入"></a>深入</h3><p><strong>MongoDB 关系</strong><br>嵌入式关系：数据保存在单一的文档中，容易获取和维护，但读写性能差<br>引用式关系：数据保存在不同的文档中，结构清晰</p>
+<p><strong>MongoDB 数据库引用</strong><br>使用 DBRefs，可以让一个文档从多个集合中引用文档。</p>
+<p><strong>MongoDB 覆盖索引查询</strong><br>尽量使用索引查询，从索引中获取数据比通过扫描文档读取数据要快得多，数据量大的时候，效果更明显。</p>
+<p><strong>MongoDB 查询分析</strong><br><code>explain()</code> 操作提供了查询信息，使用索引及查询统计等,有利于我们对索引的优化<br><code>hint()</code>可强制 MongoDB 使用一个指定的索引</p>
+<p><strong>MongoDB 原子操作</strong><br>mongodb不支持事务，所以，在你的项目中应用时，要注意这点。无论什么设计，都不要要求mongodb保证数据的完整性。<br>但是mongodb提供了许多原子操作，比如文档的保存，修改，删除等，都是原子操作。所谓原子操作就是要么这个文档保存到Mongodb，要么没有保存到Mongodb，不会出现查询到的文档没有保存完整的情况。</p>
+<p><strong>MongoDB 高级索引</strong><br><a href="http://www.runoob.com/mongodb/mongodb-advanced-indexing.html" target="_blank" rel="noopener">http://www.runoob.com/mongodb/mongodb-advanced-indexing.html</a><br>索引数组<br>索引子文档  </p>
+<p><strong>MongoDB 索引限制</strong><br><a href="http://www.runoob.com/mongodb/mongodb-indexing-limitations.html" target="_blank" rel="noopener">http://www.runoob.com/mongodb/mongodb-indexing-limitations.html</a><br>使用索引有一些限制条件</p>
+<p><strong>MongoDB ObjectId</strong><br><code>ObjectId()</code> 中存储了4个字节的时间戳，所以你不需要为你的文档保存时间戳字段，可以通过 getTimestamp 函数来获取文档的创建时间。</p>
+<p><strong>MongoDB Map Reduce</strong><br>Map-Reduce是一种计算模型，简单的说就是将大批量的工作（数据）分解（MAP）执行，然后再将结果合并成最终结果（REDUCE）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">db.collection.mapReduce(</span><br><span class="line">   <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;emit(key,value);&#125;,  <span class="comment">//map 函数</span></span><br><span class="line">   <span class="function"><span class="keyword">function</span>(<span class="params">key,values</span>) </span>&#123;<span class="keyword">return</span> reduceFunction&#125;,   <span class="comment">//reduce 函数</span></span><br><span class="line">   &#123;</span><br><span class="line">      out: collection,</span><br><span class="line">      query: <span class="built_in">document</span>,</span><br><span class="line">      sort: <span class="built_in">document</span>,</span><br><span class="line">      limit: number</span><br><span class="line">   &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><strong>MongoDB 全文检索</strong><br><a href="http://www.runoob.com/mongodb/mongodb-text-search.html" target="_blank" rel="noopener">http://www.runoob.com/mongodb/mongodb-text-search.html</a><br>全文检索对每一个词建立一个索引，指明该词在文章中出现的次数和位置，当用户查询时，检索程序就根据事先建立的索引进行查找，并将查找的结果反馈给用户的检索方式。</p>
+<p><strong>MongoDB 正则表达式</strong><br>MongoDB使用<code>$regex</code>操作符来设置匹配字符串的正则表达式。</p>
+<p><strong>MongoDB 管理工具: Rockmongo</strong><br>RockMongo是PHP5写的一个MongoDB管理工具。</p>
+<p><strong>MongoDB GridFS</strong><br><a href="http://www.runoob.com/mongodb/mongodb-gridfs.html" target="_blank" rel="noopener">http://www.runoob.com/mongodb/mongodb-gridfs.html</a><br>GridFS 用于存储和恢复那些超过16M（BSON文件限制）的文件(如：图片、音频、视频等)。<br>GridFS 也是文件存储的一种方式，但是它是存储在MonoDB的集合中。<br>GridFS 可以更好的存储大于16M的文件。<br>GridFS 会将大文件对象分割成多个小的chunk(文件片段),一般为256k/个,每个chunk将作为MongoDB的一个文档(document)被存储在chunks集合中。<br>GridFS 用两个集合来存储一个文件：fs.files与fs.chunks。<br>每个文件的实际内容被存在chunks(二进制数据)中,和文件有关的meta数据(filename,content_type,还有用户自定义的属性)将会被存在files集合中。  </p>
+<p><strong>MongoDB 固定集合（Capped Collections）</strong><br><a href="http://www.runoob.com/mongodb/mongodb-capped-collections.html" target="_blank" rel="noopener">http://www.runoob.com/mongodb/mongodb-capped-collections.html</a><br>MongoDB 固定集合（Capped Collections）是性能出色且有着固定大小的集合，对于大小固定，我们可以想象其就像一个环形队列，当集合空间用完后，再插入的元素就会覆盖最初始的头部的元素。  </p>
+<p><strong>MongoDB 自动增长</strong><br>MongoDB 没有像 SQL 一样有自动增长的功能，可以通过编程的方式实现。</p>
+</div><div class="tags"><a href="/tags/DB/">DB</a></div><div class="post-share"><div class="bdsharebuttonbox"><span style="float:left;line-height: 28px;height: 28px;font-size:16px;font-weight:blod">分享到：</span><a href="#" data-cmd="more" class="bds_more"></a><a href="#" data-cmd="mshare" title="分享到一键分享" class="bds_mshare"></a><a href="#" data-cmd="fbook" title="分享到Facebook" class="bds_fbook"></a><a href="#" data-cmd="twi" title="分享到Twitter" class="bds_twi"></a><a href="#" data-cmd="linkedin" title="分享到linkedin" class="bds_linkedin"></a><a href="#" data-cmd="youdao" title="分享到有道云笔记" class="bds_youdao"></a><a href="#" data-cmd="evernotecn" title="分享到印象笔记" class="bds_evernotecn"></a><a href="#" data-cmd="weixin" title="分享到微信" class="bds_weixin"></a><a href="#" data-cmd="qzone" title="分享到QQ空间" class="bds_qzone"></a><a href="#" data-cmd="tsina" title="分享到新浪微博" class="bds_tsina"></a></div></div><div class="post-nav"><a href="/2018/07/17/HTML-2018-07-17-Canvas/" class="pre">Canvas</a><a href="/2018/06/20/projects-2018-06-20-心情墙项目/" class="next">心情墙项目</a></div><div id="comments"><div id="gitment-wrapper"></div></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概念解析"><span class="toc-text">概念解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结构"><span class="toc-text">结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本操作"><span class="toc-text">基本操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它操作"><span class="toc-text">其它操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#连接数据库"><span class="toc-text">连接数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#深入"><span class="toc-text">深入</span></a></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/04/09/utils-2019-04-09-webpack/">webpack</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/24/projects-2018-07-24-为博客添加PWA功能/">支持PWA功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/17/HTML-2018-07-17-Canvas/">Canvas</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/24/DB-2018-06-24-MongoDB/">MongoDB</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/20/projects-2018-06-20-心情墙项目/">心情墙项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/14/JS-2018-06-14-NodeJs/">NodeJs</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/08/CSS-2018-06-08-BFC/">BFC</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/25/JS-2018-05-25-React入门（二）/">React入门（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/17/JS-2018-05-17-React入门（一）/">React入门（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/DB-2018-05-13-SQL/">SQL必知必会主要内容</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/tags/HTML/" style="font-size: 15px;">HTML</a> <a href="/tags/JS/" style="font-size: 15px;">JS</a> <a href="/tags/projects/" style="font-size: 15px;">projects</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-weibo"> 新浪微博</i></div><iframe width="100%" height="400" frameborder="0" scrolling="no" src="https://widget.weibo.com/weiboshow/index.php?language=&amp;width=0&amp;height=400&amp;fansRow=2&amp;ptype=1&amp;speed=0&amp;skin=5&amp;isTitle=0&amp;noborder=0&amp;isWeibo=1&amp;isFans=0&amp;uid=2721480693&amp;verifier=5192ec39&amp;colors=d6f3f7,ffffff,333,40759b,f7f8f8&amp;dpc=1" class="share_self"></iframe></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="https://hongxuwei.github.io/" title="scum" target="_blank">scum</a><ul></ul><a href="https://leetcode-cn.com/problemset/all/" title="leetcode" target="_blank">leetcode</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">Baidu Site Haritası</a> |  <a href="/atom.xml">订阅</a> |  <a href="/about/">关于</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次</p><p><span> Copyright &copy;<a href="/." rel="nofollow">影子烤焦了.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3dbf7de59f6d3bedd2bc087eefc6f765";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/search.json.js?v=2.0.1"></script><script>if(navigator.serviceWorker != null) {
+  window.addEventListener('DOMContentLoaded', function() {
+    // 执行注册
+    navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+
+    }).catch(function(err) {
+    // Eat it!
+    });
+  });
+}
+</script><script type="text/javascript" src="/js/toctotop.js?v=2.0.1" async></script><script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","weixin","tsina","qzone","linkedin","fbook","twi","print","renren","sqq","evernotecn","bdysc","tqq","tqf","bdxc","kaixin001","tieba","douban","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","h163","copy"],"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"]}};with(document)0[(getElementsByTagName('head')[0]||head).appendChild(createElement('script')).src='/js/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var clientId = '912e245784fb699985d9';
+var clientSecret = '7ac1ddf4ede7c31fbcaef70d2a1eadd69dffbb05';
+var gitment = new Gitment({
+  id: 'MongoDB',
+  owner: 'MiaoQ',
+  repo: 'miaoq.github.io',
+  oauth: {
+    client_id: clientId,
+    client_secret: clientSecret,
+  },
+});
+
+gitment.render('gitment-wrapper');</script></body></html>

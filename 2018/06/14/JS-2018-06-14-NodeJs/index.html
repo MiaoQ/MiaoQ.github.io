@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="前端开发"><meta name="keywords" content="前端, 知识, 技术, 博客, 分享, 成长"><title>NodeJs | 影子烤焦了</title><link rel="manifest" href="/manifest.json"><link rel="stylesheet" type="text/css" href="//fonts.neworld.org/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.1"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.1"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="stylesheet" type="text/css" href="/css/default.css"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">NodeJs</h1><a id="logo" href="/.">影子烤焦了</a><p class="description">脑海中起毛球的记忆。</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="Arama"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">NodeJs</h1><div class="post-meta"><a href="/2018/06/14/JS-2018-06-14-NodeJs/#comments" class="comment-count"></a><p><span class="date">Jun 14, 2018</span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><h3 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h3><p><strong><em>简介</em></strong><br>Node.js是javascript的一个运行环境，使用的语言自然也是javascript。安装之后，可以在控制台直接输入node进入执行环境（也就是直接输入js语句可以执行，退出按两次ctrl + c）。你也可以创建一个js文件，然后在控制台输入node filename.js执行这个文件。</p>
+<p><strong><em>Node.js REPL(交互式解释器)</em></strong>  </p>
+<ul>
+<li>Node REPL 支持输入多行表达式，Node 会自动检测是否为连续的表达式（你只需回车换行即可）</li>
+<li>可以使用下划线(_)获取上一个表达式的运算结果</li>
+</ul>
+<p>REPL 命令:  </p>
+<ul>
+<li>ctrl + c - 退出当前终端。</li>
+<li>ctrl + c 按下两次 - 退出 Node REPL。</li>
+<li>ctrl + d - 退出 Node REPL.</li>
+<li>向上/向下 键 - 查看输入的历史命令</li>
+<li>tab 键 - 列出当前命令</li>
+<li>.help - 列出使用命令</li>
+<li>.break - 退出多行表达式</li>
+<li>.clear - 退出多行表达式</li>
+<li>.save filename - 保存当前的 Node REPL 会话到指定文件</li>
+<li>.load filename - 载入当前 Node REPL 会话的文件内容。</li>
+</ul>
+<p><strong><em>搭建服务器</em></strong><br>Node.js可以直接搭建服务器端，这对于一个对后端语言有深深恐惧感，但又想要拥有能自己控制的server的前端媛来说简直是巨大的福音，因为，可以用js来搭建server了！并且非常简单。看一个例子就知道了：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">request, response</span>)</span>&#123;</span><br><span class="line">    response.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</span><br><span class="line">    response.end(<span class="string">'Hello World!\n'</span>);</span><br><span class="line">&#125;).listen(<span class="number">8888</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Server running at http://127.0.0.1:8888/'</span>);</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>NPM</em></strong><br>NPM是随同NodeJS一起安装的包管理工具</p>
+<p>查看所有npm的命令：<br><code>npm help</code></p>
+<p>使用npm安装模块：<br><code>nmp install &lt;moduleName&gt;</code>（本地安装）<br><code>npm install &lt;modulaName&gt; -g</code>（全局安装）</p>
+<p>查看所有全局安装的模块：<br><code>npm list -g</code></p>
+<p>查看某个模块的版本号：<br><code>npm list &lt;moduleName&gt;</code></p>
+<p>卸载模块：<br><code>npm uninstall &lt;moduleName&gt;</code></p>
+<p>卸载后，你可以到 /node_modules/ 目录下查看包是否还存在，或者使用以下命令查看：<br><code>npm ls</code></p>
+<p>更新模块：<br><code>npm update &lt;moduleName&gt;</code></p>
+<p>搜索模块：<br><code>npm search &lt;moduleName&gt;</code></p>
+<p>创建模块：<br>使用 NPM 生成 package.json 文件（以后进阶再仔细研究）</p>
+<p><strong><em>package.json</em></strong><br><code>package.json</code>位于模块的目录下，用于定义包的属性</p>
+<ul>
+<li>name - 包名。</li>
+<li>version - 包的版本号。</li>
+<li>description - 包的描述。</li>
+<li>homepage - 包的官网 url 。</li>
+<li>author - 包的作者姓名。</li>
+<li>contributors - 包的其他贡献者姓名。</li>
+<li>dependencies - 依赖包列表。如果依赖包没有安装，npm 会自动将依赖包安装在 node_module 目录下。</li>
+<li>repository - 包代码存放的地方的类型，可以是 git 或 svn，git 可在 Github 上。</li>
+<li>main - main 字段指定了程序的主入口文件，require(‘moduleName’) 就会加载这个文件。这个字段的默认值是模块根目录下面的 index.js。</li>
+<li>keywords - 关键字</li>
+</ul>
+<hr>
+<h3 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h3><p><strong><em>Node.js 回调函数</em></strong><br>回调函数在完成任务后就会被调用，Node 使用了大量的回调函数，Node 所有 API 都支持回调函数</p>
+<p><strong><em>Node.js 事件循环</em></strong><br>在 Node 应用程序中，执行异步操作的函数将回调函数作为最后一个参数，回调函数接收错误对象作为第一个参数</p>
+<p><strong><em>Node.js EventEmitter</em></strong><br>events 模块只提供了一个对象：events.EventEmitter。EventEmitter 的核心就是事件触发与事件监听器功能的封装<br>EventEmitter 对象如果在实例化时发生错误，会触发 error 事件。当添加新的监听器时，newListener 事件会触发，当监听器被移除时，removeListener 事件被触发</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> EventEmitter = <span class="built_in">require</span>(<span class="string">'events'</span>).EventEmitter; </span><br><span class="line"><span class="keyword">var</span> event = <span class="keyword">new</span> EventEmitter(); </span><br><span class="line">event.on(<span class="string">'some_event'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'some_event 事件触发'</span>); </span><br><span class="line">&#125;); </span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    event.emit(<span class="string">'some_event'</span>); </span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<p>EventEmitter的属性：<br>addListener on once removeListener removeAllListeners setMaxListeners listeners</p>
+<p>类方法：<br>listenerCount</p>
+<p>事件：<br>newListener removeListener</p>
+<p>EventEmitter 定义了一个特殊的事件 error，它包含了错误的语义，我们在遇到异常的时候通常会触发 error 事件。<br>当 error 被触发时，EventEmitter 规定如果没有响应的监听器，Node.js 会把它当作异常，退出程序并输出错误信息。我们一般要为会触发 error 事件的对象设置监听器，避免遇到错误后整个程序崩溃。</p>
+<p>大多数时候我们不会直接使用 EventEmitter，而是在对象中继承它。包括 fs、net、 http 在内的，只要是支持事件响应的核心模块都是 EventEmitter 的子类。</p>
+<p><strong><em>Node.js Buffer(缓冲区)</em></strong><br>JavaScript 语言自身只有字符串数据类型，没有二进制数据类型。<br>但在处理像TCP流或文件流时，必须使用到二进制数据。因此在 Node.js中，定义了一个 Buffer 类，该类用来创建一个专门存放二进制数据的缓存区。</p>
+<p><strong><em>Node.js Stream(流)</em></strong><br>Stream 是一个抽象接口，Node 中有很多对象实现了这个接口。<br>从流中读数据 将数据写入流<br>管道流 用于从一个流中获取数据并将数据传递到另外一个流中<br>链式流 可以对流进行压缩、解压等处理</p>
+<p><strong><em>Node.js模块系统</em></strong><br>为了让Node.js的文件可以相互调用，Node.js提供了一个简单的模块系统。</p>
+<p>模块是Node.js 应用程序的基本组成部分，文件和模块是一一对应的。换言之，一个 Node.js 文件就是一个模块，这个文件可能是JavaScript代码、JSON或者编译过的C/C++扩展。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建模块 hello.js</span></span><br><span class="line">exports.world = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello world'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//或者：</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello world'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//或者：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Hello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello world'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = Hello;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//引用模块 main.js</span></span><br><span class="line"><span class="keyword">var</span> Hello = <span class="built_in">require</span>(<span class="string">'./hello'</span>);<span class="comment">//./表示当前目录，省略了文件名后缀.js</span></span><br><span class="line">hello = <span class="keyword">new</span> Hello();</span><br></pre></td></tr></table></figure>
+<p><strong><em>Node.js 函数</em></strong><br>在JavaScript中，一个函数可以作为另一个函数的参数。我们可以先定义一个函数，然后传递，也可以在传递参数的地方直接定义函数。</p>
+<p><strong><em>Node.js 路由</em></strong><br>通过请求的path name来决定作什么样的response</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//router.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">route</span>(<span class="params">pathname</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'About to route a request for '</span> + pathname);</span><br><span class="line">&#125;</span><br><span class="line">exports.route = route;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//server.js</span></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">'url'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params">route</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">onRequest</span>(<span class="params">request, response</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> pathname = url.parse(request.url).pathname;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Request for '</span> + pathname + <span class="string">' received.'</span>);</span><br><span class="line"></span><br><span class="line">        route(pathname);</span><br><span class="line"></span><br><span class="line">        response.write(<span class="number">200</span>, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</span><br><span class="line">        response.write(<span class="string">'hello world'</span>);</span><br><span class="line">        response.end();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    http.createServer(onRequest).listen(<span class="number">8888</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Server has started.'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exports.start = start;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">'./server'</span>);</span><br><span class="line"><span class="keyword">var</span> router = <span class="built_in">require</span>(<span class="string">'./router'</span>);</span><br><span class="line"></span><br><span class="line">server.start(router.route);</span><br></pre></td></tr></table></figure>
+<p><strong><em>Node.js 全局对象</em></strong><br>Node.js 中的全局对象是 global，可以直接访问到 global 的属性，而不需要在应用中包含它</p>
+<ul>
+<li><code>__filename</code> 表示当前正在执行的脚本的文件名，它将输出文件所在位置的绝对路径</li>
+<li><code>__dirname</code> 表示当前执行脚本所在的目录</li>
+<li><code>setTimeout(cb, ms)</code></li>
+<li><code>clearTimeout(t)</code></li>
+<li><code>setInterval(cb, ms)</code></li>
+<li><code>console</code></li>
+<li><code>process</code>用于描述当前Node.js 进程状态的对象</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>console方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>console.log([data][, …])</td>
+<td>向标准输出流打印字符并以换行符结束（可以加%d那种）</td>
+</tr>
+<tr>
+<td>console.info([data][, …])</td>
+<td>信息性消息（蓝色的惊叹号）</td>
+</tr>
+<tr>
+<td>console.error([data][, …])</td>
+<td>错误消息（红色的叉子）</td>
+</tr>
+<tr>
+<td>console.warn([data][, …])</td>
+<td>警告消息（黄色的惊叹号）</td>
+</tr>
+<tr>
+<td>console.dir(obj[, options])</td>
+<td>用来对一个对象进行检查（inspect），并以易于阅读和打印的格式显示</td>
+</tr>
+<tr>
+<td>console.time(label)</td>
+<td>输出时间，表示计时开始</td>
+</tr>
+<tr>
+<td>console.timeEnd(label)</td>
+<td>结束时间，表示计时结束</td>
+</tr>
+<tr>
+<td>console.trace(message[, …])</td>
+<td>当前执行的代码在堆栈中的调用路径</td>
+</tr>
+<tr>
+<td>console.assert(value[, message][, …])</td>
+<td>用于判断某个表达式或变量是否为真，接收两个参数，第一个参数是表达式，第二个参数是字符串。只有当第一个参数为false，才会输出第二个参数，否则不会有任何结果</td>
+</tr>
+</tbody>
+</table>
+<p><strong><em>Node.js 常用工具</em></strong>  </p>
+<ul>
+<li><code>util.inherits</code>实现对象间原型继承，仅仅继承在原型中定义的函数，构造函数内的不继承</li>
+<li><code>util.inspect</code>将任意对象转换为字符串</li>
+<li><code>util.isArray(object)</code> <code>util.isRegExp(object)</code> <code>util.isDate(object)</code> <code>util.isError(object)</code></li>
+</ul>
+<p><strong><em>Node.js 文件系统</em></strong><br><a href="https://www.runoob.com/nodejs/nodejs-fs.html" target="_blank" rel="noopener">https://www.runoob.com/nodejs/nodejs-fs.html</a></p>
+<p><strong><em>Node.js GET/POST请求</em></strong><br><a href="https://www.runoob.com/nodejs/node-js-get-post.html" target="_blank" rel="noopener">https://www.runoob.com/nodejs/node-js-get-post.html</a></p>
+<p><strong><em>Node.js Web 模块</em></strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建服务端server.js</span></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">'url'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建服务器</span></span><br><span class="line">http.createServer( <span class="function"><span class="keyword">function</span> (<span class="params">request, response</span>) </span>&#123;  </span><br><span class="line">   <span class="comment">// 解析请求，包括文件名</span></span><br><span class="line">   <span class="keyword">var</span> pathname = url.parse(request.url).pathname;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// 输出请求的文件名</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">"Request for "</span> + pathname + <span class="string">" received."</span>);</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// 从文件系统中读取请求的文件内容</span></span><br><span class="line">   fs.readFile(pathname.substr(<span class="number">1</span>), <span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (err) &#123;</span><br><span class="line">         <span class="built_in">console</span>.log(err);</span><br><span class="line">         <span class="comment">// HTTP 状态码: 404 : NOT FOUND</span></span><br><span class="line">         <span class="comment">// Content Type: text/plain</span></span><br><span class="line">         response.writeHead(<span class="number">404</span>, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html'</span>&#125;);</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;             </span><br><span class="line">         <span class="comment">// HTTP 状态码: 200 : OK</span></span><br><span class="line">         <span class="comment">// Content Type: text/plain</span></span><br><span class="line">         response.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html'</span>&#125;);    </span><br><span class="line">         </span><br><span class="line">         <span class="comment">// 响应文件内容</span></span><br><span class="line">         response.write(data.toString());        </span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//  发送响应数据</span></span><br><span class="line">      response.end();</span><br><span class="line">   &#125;);   </span><br><span class="line">&#125;).listen(<span class="number">8080</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 控制台会输出以下信息</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Server running at http://127.0.0.1:8080/'</span>);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建客户端client.js</span></span><br><span class="line"><span class="comment">//新打开一个终端，执行client.js</span></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 用于请求的选项</span></span><br><span class="line"><span class="keyword">var</span> options = &#123;</span><br><span class="line">   host: <span class="string">'localhost'</span>,</span><br><span class="line">   port: <span class="string">'8080'</span>,</span><br><span class="line">   path: <span class="string">'/index.html'</span>  </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 处理响应的回调函数</span></span><br><span class="line"><span class="keyword">var</span> callback = <span class="function"><span class="keyword">function</span>(<span class="params">response</span>)</span>&#123;</span><br><span class="line">   <span class="comment">// 不断更新数据</span></span><br><span class="line">   <span class="keyword">var</span> body = <span class="string">''</span>;</span><br><span class="line">   response.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">      body += data;</span><br><span class="line">   &#125;);</span><br><span class="line">   </span><br><span class="line">   response.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 数据接收完成</span></span><br><span class="line">      <span class="built_in">console</span>.log(body);</span><br><span class="line">   &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 向服务端发送请求</span></span><br><span class="line"><span class="keyword">var</span> req = http.request(options, callback);</span><br><span class="line">req.end();</span><br></pre></td></tr></table></figure>
+<p><strong><em>Node.js Express 框架</em></strong><br><a href="https://www.runoob.com/nodejs/nodejs-express-framework.html" target="_blank" rel="noopener">https://www.runoob.com/nodejs/nodejs-express-framework.html</a><br>Express 是一个简洁而灵活的 node.js Web应用框架, 提供了一系列强大特性帮助你创建各种 Web 应用，和丰富的 HTTP 工具。<br>使用 Express 可以快速地搭建一个完整功能的网站.</p>
+<p>Express 框架核心特性：</p>
+<ul>
+<li>可以设置中间件来响应 HTTP 请求</li>
+<li>定义了路由表用于执行不同的 HTTP 请求动作</li>
+<li>可以通过向模板传递参数来动态渲染 HTML 页面</li>
+</ul>
+<p><strong><em>Node.js 多进程</em></strong><br>我们都知道 Node.js 是以单线程的模式运行的，但它使用的是事件驱动来处理并发，这样有助于我们在多核 cpu 的系统上创建多个子进程，从而提高性能。</p>
+<p><strong><em>Node.js 连接 MySQL</em></strong><br><a href="https://www.runoob.com/nodejs/nodejs-mysql.html" target="_blank" rel="noopener">https://www.runoob.com/nodejs/nodejs-mysql.html</a></p>
+<p><strong><em>Node.js 连接 MongoDB</em></strong><br><a href="https://www.runoob.com/nodejs/nodejs-mongodb.html" target="_blank" rel="noopener">https://www.runoob.com/nodejs/nodejs-mongodb.html</a></p>
+</div><div class="tags"><a href="/tags/JS/">JS</a></div><div class="post-share"><div class="bdsharebuttonbox"><span style="float:left;line-height: 28px;height: 28px;font-size:16px;font-weight:blod">分享到：</span><a href="#" data-cmd="more" class="bds_more"></a><a href="#" data-cmd="mshare" title="分享到一键分享" class="bds_mshare"></a><a href="#" data-cmd="fbook" title="分享到Facebook" class="bds_fbook"></a><a href="#" data-cmd="twi" title="分享到Twitter" class="bds_twi"></a><a href="#" data-cmd="linkedin" title="分享到linkedin" class="bds_linkedin"></a><a href="#" data-cmd="youdao" title="分享到有道云笔记" class="bds_youdao"></a><a href="#" data-cmd="evernotecn" title="分享到印象笔记" class="bds_evernotecn"></a><a href="#" data-cmd="weixin" title="分享到微信" class="bds_weixin"></a><a href="#" data-cmd="qzone" title="分享到QQ空间" class="bds_qzone"></a><a href="#" data-cmd="tsina" title="分享到新浪微博" class="bds_tsina"></a></div></div><div class="post-nav"><a href="/2018/06/20/projects-2018-06-20-心情墙项目/" class="pre">心情墙项目</a><a href="/2018/06/08/CSS-2018-06-08-BFC/" class="next">BFC</a></div><div id="comments"><div id="gitment-wrapper"></div></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#开篇"><span class="toc-text">开篇</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主要内容"><span class="toc-text">主要内容</span></a></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/04/09/utils-2019-04-09-webpack/">webpack</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/24/projects-2018-07-24-为博客添加PWA功能/">支持PWA功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/17/HTML-2018-07-17-Canvas/">Canvas</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/24/DB-2018-06-24-MongoDB/">MongoDB</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/20/projects-2018-06-20-心情墙项目/">心情墙项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/14/JS-2018-06-14-NodeJs/">NodeJs</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/08/CSS-2018-06-08-BFC/">BFC</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/25/JS-2018-05-25-React入门（二）/">React入门（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/17/JS-2018-05-17-React入门（一）/">React入门（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/DB-2018-05-13-SQL/">SQL必知必会主要内容</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/tags/HTML/" style="font-size: 15px;">HTML</a> <a href="/tags/JS/" style="font-size: 15px;">JS</a> <a href="/tags/projects/" style="font-size: 15px;">projects</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-weibo"> 新浪微博</i></div><iframe width="100%" height="400" frameborder="0" scrolling="no" src="https://widget.weibo.com/weiboshow/index.php?language=&amp;width=0&amp;height=400&amp;fansRow=2&amp;ptype=1&amp;speed=0&amp;skin=5&amp;isTitle=0&amp;noborder=0&amp;isWeibo=1&amp;isFans=0&amp;uid=2721480693&amp;verifier=5192ec39&amp;colors=d6f3f7,ffffff,333,40759b,f7f8f8&amp;dpc=1" class="share_self"></iframe></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="https://hongxuwei.github.io/" title="scum" target="_blank">scum</a><ul></ul><a href="https://leetcode-cn.com/problemset/all/" title="leetcode" target="_blank">leetcode</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">Baidu Site Haritası</a> |  <a href="/atom.xml">订阅</a> |  <a href="/about/">关于</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次</p><p><span> Copyright &copy;<a href="/." rel="nofollow">影子烤焦了.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3dbf7de59f6d3bedd2bc087eefc6f765";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/search.json.js?v=2.0.1"></script><script>if(navigator.serviceWorker != null) {
+  window.addEventListener('DOMContentLoaded', function() {
+    // 执行注册
+    navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+
+    }).catch(function(err) {
+    // Eat it!
+    });
+  });
+}
+</script><script type="text/javascript" src="/js/toctotop.js?v=2.0.1" async></script><script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","weixin","tsina","qzone","linkedin","fbook","twi","print","renren","sqq","evernotecn","bdysc","tqq","tqf","bdxc","kaixin001","tieba","douban","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","h163","copy"],"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"]}};with(document)0[(getElementsByTagName('head')[0]||head).appendChild(createElement('script')).src='/js/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var clientId = '912e245784fb699985d9';
+var clientSecret = '7ac1ddf4ede7c31fbcaef70d2a1eadd69dffbb05';
+var gitment = new Gitment({
+  id: 'NodeJs',
+  owner: 'MiaoQ',
+  repo: 'miaoq.github.io',
+  oauth: {
+    client_id: clientId,
+    client_secret: clientSecret,
+  },
+});
+
+gitment.render('gitment-wrapper');</script></body></html>

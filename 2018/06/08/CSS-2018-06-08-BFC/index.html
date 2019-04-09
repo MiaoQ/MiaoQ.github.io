@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="前端开发"><meta name="keywords" content="前端, 知识, 技术, 博客, 分享, 成长"><title>BFC | 影子烤焦了</title><link rel="manifest" href="/manifest.json"><link rel="stylesheet" type="text/css" href="//fonts.neworld.org/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.1"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.1"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="stylesheet" type="text/css" href="/css/default.css"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">BFC</h1><a id="logo" href="/.">影子烤焦了</a><p class="description">脑海中起毛球的记忆。</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="Arama"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">BFC</h1><div class="post-meta"><a href="/2018/06/08/CSS-2018-06-08-BFC/#comments" class="comment-count"></a><p><span class="date">Jun 08, 2018</span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content">
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<style type="text/css">
+    .container{
+        border: 1px dashed gray;
+    }
+    .left{
+        float: left;
+    }
+    .right{
+        float: right;
+    }
+    .bfc{
+        overflow: hidden;
+    }
+    .line-b{
+        display: inline-block;
+    }
+    .abs{
+        position: absolute;
+    }
+    .box {
+        color: #f55;
+        background: #fcc;
+        width: 150px;
+        height: 150px;
+        line-height: 150px;
+        text-align:center;
+        margin: 30px;
+    }
+    .first{
+      margin:20px;
+      background:lightgreen;
+      width:100px;
+      height:100px;
+    }
+    .list{
+      margin:10px;
+      background:lightblue;
+    }
+    .list > li{
+      margin:25px;
+    }
+    .aside {
+        width: 100px;
+        height: 150px;
+        float: left;
+        background: #f66;
+    }
+    .main {
+        height: 200px;
+        background: #fcc;
+    }
+    .left-box{
+      background:pink;
+      width:150px;
+      height: 150px;
+    }
+    .center-box{
+      background:lightyellow;
+      height: 150px;
+    }
+    .right-box{
+      background: lightblue;
+      width:150px;
+      height: 150px;
+    }
+</style>
+<body>
+    <div class="notes">
+        <p>哪些元素会生成BFC（可以通过以下任意合适的方式触发box生成BFC）?</p>
+        <ul>
+            <li>根元素</li>
+            <li>float的值不为none</li>
+            <li>overflow的值不为visible</li>
+            <li>display的值为inline-block、table-cell、table-caption</li>
+            <li>position的值为absolute或fixed</li>
+        </ul>
+        <hr>
+        <p>BFC的约束规则:</p>
+        <ul>
+            <li>内部的Box会在垂直方向上一个接一个的放置</li>
+            <li>属于同一个BFC的两个相邻Box的margin会发生重叠（塌陷）</li>
+            <li>每个元素的左外边距与包含块的左边界相接触（从左向右），即使浮动元素也是如此。（这说明BFC中子元素不会超出他的包含块，而position为absolute的元素可以超出他的包含块边界）</li>
+            <li>BFC的区域不会与float的元素区域重叠</li>
+            <li>计算BFC的高度时，浮动子元素也参与计算</li>
+            <li>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面元素，反之亦然</li>
+        </ul>
+    </div>
+    <div class="container bfc">
+        <!--属于同一个BFC的两个相邻Box的margin会发生重叠（垂直方向）-->
+        <!--解决：让其不属于同一个BFC-->
+        <div class="bfc">
+            <p class="box"></p>
+        </div>
+        <p class="box"></p>
+    </div>
+    <div class="container bfc">
+        <!--属于同一个BFC的两个相邻Box的margin会发生重叠（水平方向）-->
+        <!--解决：让其不属于同一个BFC-->
+        <p class="box line-b"></p>
+        <p class="box line-b"></p>
+        <p class="box line-b"></p>
+    </div>
+    <div class="container bfc">
+        <!--此时div与ul之间的垂直距离，取div、ul、li三者之间的最大外边距，重叠-->
+        <!--解决：让其不属于同一个BFC，line-b来解决li有点问题，没有垂直排列了-->
+        <div class="first"></div>
+        <ul class="list line-b">
+            <li class="line-b">1</li>
+            <li class="line-b">2</li>
+            <li class="line-b">3</li>
+        </ul>
+    </div>
+    <div class="container bfc">
+        <!--计算BFC的高度时，浮动元素也参与计算，（父元素为BFC）可以达到清除浮动的目的-->
+        <p class="box left"></p>
+        <p class="box left"></p>
+    </div>
+    <div class="container bfc">
+        <!--每个元素的margin box的左边，与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此-->
+        <!--BFC的区域不会与float box重叠-->
+        <!--实现两栏布局-->
+        <div class="aside"></div>
+        <div class="main bfc"></div>
+    </div>
+    <div class="container bfc">
+        <!--自适应两栏布局-->
+        <!--不知道为啥也有点问题-->
+        <div class="left-box left"></div>
+        <div class="center-box bfc"></div>
+        <div class="right-box right"></div>
+    </div>
+</body>
+</html></div><div class="tags"><a href="/tags/CSS/">CSS</a></div><div class="post-share"><div class="bdsharebuttonbox"><span style="float:left;line-height: 28px;height: 28px;font-size:16px;font-weight:blod">分享到：</span><a href="#" data-cmd="more" class="bds_more"></a><a href="#" data-cmd="mshare" title="分享到一键分享" class="bds_mshare"></a><a href="#" data-cmd="fbook" title="分享到Facebook" class="bds_fbook"></a><a href="#" data-cmd="twi" title="分享到Twitter" class="bds_twi"></a><a href="#" data-cmd="linkedin" title="分享到linkedin" class="bds_linkedin"></a><a href="#" data-cmd="youdao" title="分享到有道云笔记" class="bds_youdao"></a><a href="#" data-cmd="evernotecn" title="分享到印象笔记" class="bds_evernotecn"></a><a href="#" data-cmd="weixin" title="分享到微信" class="bds_weixin"></a><a href="#" data-cmd="qzone" title="分享到QQ空间" class="bds_qzone"></a><a href="#" data-cmd="tsina" title="分享到新浪微博" class="bds_tsina"></a></div></div><div class="post-nav"><a href="/2018/06/14/JS-2018-06-14-NodeJs/" class="pre">NodeJs</a><a href="/2018/05/25/JS-2018-05-25-React入门（二）/" class="next">React入门（二）</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/04/09/utils-2019-04-09-webpack/">webpack</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/24/projects-2018-07-24-为博客添加PWA功能/">支持PWA功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/17/HTML-2018-07-17-Canvas/">Canvas</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/24/DB-2018-06-24-MongoDB/">MongoDB</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/20/projects-2018-06-20-心情墙项目/">心情墙项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/14/JS-2018-06-14-NodeJs/">NodeJs</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/08/CSS-2018-06-08-BFC/">BFC</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/25/JS-2018-05-25-React入门（二）/">React入门（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/17/JS-2018-05-17-React入门（一）/">React入门（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/DB-2018-05-13-SQL/">SQL必知必会主要内容</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/tags/HTML/" style="font-size: 15px;">HTML</a> <a href="/tags/JS/" style="font-size: 15px;">JS</a> <a href="/tags/projects/" style="font-size: 15px;">projects</a> <a href="/tags/utils/" style="font-size: 15px;">utils</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-weibo"> 新浪微博</i></div><iframe width="100%" height="400" frameborder="0" scrolling="no" src="https://widget.weibo.com/weiboshow/index.php?language=&amp;width=0&amp;height=400&amp;fansRow=2&amp;ptype=1&amp;speed=0&amp;skin=5&amp;isTitle=0&amp;noborder=0&amp;isWeibo=1&amp;isFans=0&amp;uid=2721480693&amp;verifier=5192ec39&amp;colors=d6f3f7,ffffff,333,40759b,f7f8f8&amp;dpc=1" class="share_self"></iframe></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="https://hongxuwei.github.io/" title="scum" target="_blank">scum</a><ul></ul><a href="https://leetcode-cn.com/problemset/all/" title="leetcode" target="_blank">leetcode</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">Baidu Site Haritası</a> |  <a href="/atom.xml">订阅</a> |  <a href="/about/">关于</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次</p><p><span> Copyright &copy;<a href="/." rel="nofollow">影子烤焦了.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3dbf7de59f6d3bedd2bc087eefc6f765";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/search.json.js?v=2.0.1"></script><script>if(navigator.serviceWorker != null) {
+  window.addEventListener('DOMContentLoaded', function() {
+    // 执行注册
+    navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+
+    }).catch(function(err) {
+    // Eat it!
+    });
+  });
+}
+</script><script type="text/javascript" src="/js/toctotop.js?v=2.0.1" async></script><script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","weixin","tsina","qzone","linkedin","fbook","twi","print","renren","sqq","evernotecn","bdysc","tqq","tqf","bdxc","kaixin001","tieba","douban","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","h163","copy"],"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"]}};with(document)0[(getElementsByTagName('head')[0]||head).appendChild(createElement('script')).src='/js/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script></body></html>
