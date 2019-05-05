@@ -3,7 +3,7 @@ title: 导出json数据到excel
 date: 2019-05-05 16:07:21
 tags: tips
 gitment: 导出json数据到excel
-description: 本文简述了如何在vue中使用工具导出json数据到excel中
+description: 本文简述了前端如何使用工具导出json数据到excel中
 ---
 
 ### 安装依赖项 ###
