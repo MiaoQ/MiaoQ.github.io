@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://miaoq.github.io/"/>
-  <updated>2019-04-11T07:53:22.168Z</updated>
+  <updated>2019-05-05T08:43:00.003Z</updated>
   <id>https://miaoq.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>导出json数据到excel</title>
+    <link href="https://miaoq.github.io/2019/05/05/tips-2019-05-05-%E5%AF%BC%E5%87%BAjson%E6%95%B0%E6%8D%AE%E5%88%B0excel/"/>
+    <id>https://miaoq.github.io/2019/05/05/tips-2019-05-05-导出json数据到excel/</id>
+    <published>2019-05-05T08:07:21.000Z</published>
+    <updated>2019-05-05T08:43:00.003Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="安装依赖项"><a href="#安装依赖项" class="headerlink" title="安装依赖项"></a>安装依赖项</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install file-saver --save</span><br><span class="line">npm install xlsx --save</span><br><span class="line">npm install script-loader --save-dev</span><br></pre></td></tr></table></figure><h3 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h3><p>下载所需文件<a href="http://xiazai.jb51.net/201708/yuanma/Export2Exce_jb51.rar" target="_blank" rel="noopener">Blob.js和Export2Excel.js</a></p><h3 id="代码组织部分"><a href="#代码组织部分" class="headerlink" title="代码组织部分"></a>代码组织部分</h3><ol><li>在src目录下新建excel文件夹，将上面下载的Blob.js和Export2Excel.js放入excel文件夹中</li><li><p>在存放model的文件中（我这里是store目录下的common.js）添加如下函数，实现将json数据导出为excel文件：</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">export2Excel(context, param) &#123; <span class="comment">// 导出excel</span></span><br><span class="line">  <span class="built_in">require</span>.ensure([], () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; export_json_to_excel &#125; = <span class="built_in">require</span>(<span class="string">'../excel/Export2Excel'</span>)</span><br><span class="line">    <span class="keyword">const</span> &#123; fileName, header, headerKey, dataSource &#125; = param</span><br><span class="line">    <span class="keyword">const</span> data = dataSource.map(<span class="function"><span class="params">v</span> =&gt;</span> headerKey.map(<span class="function"><span class="params">j</span> =&gt;</span> v[j]))</span><br><span class="line">    export_json_to_excel(header, data, fileName)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>当向后台发起“导出”的ajax请求并得到响应后，返回的json数据大致如下：</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">res.data = [&#123;</span><br><span class="line">  "id": "01",</span><br><span class="line">  "name": "张三",</span><br><span class="line">  "age": 16,</span><br><span class="line">  "location": "上海"</span><br><span class="line">&#125;, &#123;</span><br><span class="line">  "id": "02",</span><br><span class="line">  "name": "李四",</span><br><span class="line">  "age": 19,</span><br><span class="line">  "location": "杭州"</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure></li></ol><p>在成功得到返回数据后，调用export2Excel，将数据导出：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export2Excel(&#123;</span><br><span class="line">  fileName: <span class="string">'人员信息记录表'</span>,</span><br><span class="line">  header: [<span class="string">'编号'</span>, <span class="string">'姓名'</span>, <span class="string">'年龄'</span>, <span class="string">'地址'</span>],</span><br><span class="line">  headerKey: [<span class="string">'id'</span>, <span class="string">'name'</span>, <span class="string">'age'</span>, <span class="string">'location'</span>],</span><br><span class="line">  dataSource: res.data</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      本文简述了如何在vue中使用工具导出json数据到excel中
+    
+    </summary>
+    
+    
+      <category term="tips" scheme="https://miaoq.github.io/tags/tips/"/>
+    
+  </entry>
   
   <entry>
     <title>webpack</title>
